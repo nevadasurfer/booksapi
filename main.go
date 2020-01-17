@@ -26,7 +26,7 @@ func main() {
 		Book{ID: 4, Title: "Go pickme up", Author: "Mr.GBad", Year: "1921"},
 		Book{ID: 5, Title: "Go down on it", Author: "Mr.Good", Year: "1911"})
 
-	router.HandleFunc("/books", getBook).Methods("GET")
+	router.HandleFunc("/books", getBooks).Methods("GET")
 	router.HandleFunc("/books/{id}", getBook).Methods("GET")
 	router.HandleFunc("/books", addBook).Methods("POST")
 	router.HandleFunc("/books", updateBook).Methods("PUT")
