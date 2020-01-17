@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -16,7 +17,15 @@ type Book struct {
 var books []Book
 
 func main() {
+
 	router := mux.NewRouter()
+
+	books = append(books, Book{ID: 1, Title: "Golang pointers", Author: "Mr. Golang", Year: "2010"},
+		Book{ID: 2, Title: "Goroutines", Author: "Mr.Gourity", Year: "1989"},
+		Book{ID: 3, Title: "Go routers", Author: "Mr.Balddy", Year: "1923"},
+		Book{ID: 4, Title: "Go pickme up", Author: "Mr.GBad", Year: "1921"},
+		Book{ID: 5, Title: "Go down on it", Author: "Mr.Good", Year: "1911"})
+
 	router.HandleFunc("/books", getBook).Methods("GET")
 	router.HandleFunc("/books/{id}", getBook).Methods("GET")
 	router.HandleFunc("/books", addBook).Methods("POST")
@@ -28,7 +37,7 @@ func main() {
 }
 
 func getBooks(w http.ResponseWriter, r *http.Request) {
-	log.Println("Get all books")
+	json.NewEncoder(w).Encode(books)
 }
 
 func getBook(w http.ResponseWriter, r *http.Request) {
